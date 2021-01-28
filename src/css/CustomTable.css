@@ -1,0 +1,101 @@
+.Operations {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-right: 3px;
+}
+body{
+  line-height: .8rem !important;
+ 
+}
+.editBtn {
+  border: none;
+  border: 0.5px solid green;
+  margin: 0 3px;
+  /* height: 2rem; */
+  border-radius: 3px;
+  /* width: 3rem; */
+  font-family: "VazirDigit", "Vazir";
+  font-size: 13px !important;
+  text-align: center;
+  margin: 5px;
+  /* width: 7rem; */
+}
+input:focus {
+  /* outline: 1px auto cornflowerblue;
+
+  margin: 5px; */
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  /* font-size: 13px !important; */
+}
+button:focus {
+  outline: 1px dotted;
+
+  outline: 2px auto cornflowerblue !important;
+  /* color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); */
+}
+.deleteBtn {
+  border: none;
+  padding: 5px;
+  margin: 0 3px;
+  height: 2rem;
+  border-radius: 3px;
+  width: 3rem;
+  font-family: "VazirDigit", "Vazir";
+  text-align: center;
+  font-size: 13px !important;
+}
+
+.scroll {
+  overflow: auto;
+}
+.trheight {
+  /* height: 3.2rem; */
+}
+thead input {
+  border-radius: 3px;
+  border: none;
+  text-align: center;
+  font-family: "VazirDigit", "Vazir";
+  /* font-size: 1rem; */
+  /* font-size: 13px !important; */
+}
+th {
+  font-size: smaller;
+  text-align: center !important;
+}
+tbody {
+  font-family: "VazirDigit", "Vazir";
+  font-size: 13px !important;
+}
+tbody tr td {
+  border-radius: 3px;
+  border: none;
+  text-align: center;
+  font-family: "VazirDigit", "Vazir";
+  /* font-size: 1.2rem; */
+  padding: 0;
+  margin: 0;
+  font-size: 13px !important;
+}
+.forSearch {
+  border-bottom: seagreen !important;
+  margin:3px;
+  padding:2px;
+  /* margin: 1rem; */
+}
+.rtlDir {
+  direction: rtl;
+}
+.pagination {
+  font-family: "VazirDigit", "Vazir";
+}

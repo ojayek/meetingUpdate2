@@ -1,0 +1,37 @@
+@font-face {
+    font-family: Vazir;
+    src: url("../../node_modules/vazir-font/dist/Vazir-Light.eot");
+    src: url("../../node_modules/vazir-font/dist/Vazir-Light.eot")
+        format("embedded-opentype"),
+      url("../../node_modules/vazir-font/dist/Vazir-Light.woff2") format("woff2"),
+      url("../../node_modules/vazir-font/dist/Vazir-Light.woff") format("woff"),
+      url("../../node_modules/vazir-font/dist/Vazir-Light.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: VazirDigit;
+    src: url("../../node_modules/vazir-font/dist/Farsi-Digits/Vazir-Light-FD.eot");
+    src: url("../../node_modules/vazir-font/dist/Farsi-Digits/Vazir-Light-FD.eot")
+        format("embedded-opentype"),
+      url("../../node_modules/vazir-font/dist/Farsi-Digits/Vazir-Light-FD.woff2")
+        format("woff2"),
+      url("../../node_modules/vazir-font/dist/Farsi-Digits/Vazir-Light-FD.woff")
+        format("woff"),
+      url("../../node_modules/vazir-font/dist/Farsi-Digits/Vazir-Light-FD.ttf")
+        format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  
+body {
+    overflow-x: hidden;
+    font-family: "VazirDigit", "Vazir" !important;
+    font-size: 13px !important;
+  }
+
+  .forLable{
+    font-size: 10pt !important;
+  }
