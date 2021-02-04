@@ -10,10 +10,14 @@ import { utils } from 'react-modern-calendar-datepicker';
 const CreateSummaryOfMeeting = () => {
   const [meetingDate, setMeetingDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [endDateEdit, setEndDateEdit] = useState(null);
   const [selectedRow, setSelectedRow] = useState('');
   const [showData, setShowData] = useState(false);
   const [meetingSubTitle, setMeetingSubTitle] = useState('');
+  const [id, setId] = useState(null);
   const [tracingResponsible, setTracingResponsible] = useState('');
+  const [subjectEdit, setSubjectEdit] = useState('');
+  const [tracingResponsibleEdit, setTracingResponsibleEdit] = useState('');
   const [contactlist, setContactList] = useState([]);
   const persianToday = utils('fa').getToday(); // { year: 1399, month: 11, day: 9 }
 
@@ -38,11 +42,13 @@ const CreateSummaryOfMeeting = () => {
               type='button'
               className='editBtn'
               data-toggle='modal'
-              data-target='.bd-example-modal-lg'
+              data-target='.modal21'
               onClick={(e) => {
-                // setTel('');
-                // setDirectPhoneNo('');
-                // setSelectedRowData(row);
+                console.log('rowdata is:', row);
+                setSubjectEdit(row.original.Subject);
+                setEndDateEdit(row.original.endDate);
+                setTracingResponsibleEdit(row.original.tracingResponsible);
+                setId(row.original.id);
               }}
             >
               ویرایش
@@ -50,8 +56,6 @@ const CreateSummaryOfMeeting = () => {
             <button
               type='button'
               className='editBtn'
-              data-toggle='modal'
-              data-target='.bd-example-modal-lg'
               onClick={(e) => {
                 console.log('row.id', row.id, row);
                 let filterList = contactlist.filter(
@@ -93,6 +97,27 @@ const CreateSummaryOfMeeting = () => {
         //  setIsChangeTel(true);
         setTracingResponsible(e.target.value);
         break;
+      case 'tracingResponsibleEdit':
+        // setShowError(false);
+        if (e.target.value.length > maxNum)
+          e.target.value = e.target.value.slice(0, maxNum);
+        //  setIsChangeTel(true);
+        setTracingResponsibleEdit(e.target.value);
+        break;
+      case 'subjectEdit':
+        // setShowError(false);
+        if (e.target.value.length > maxNum)
+          e.target.value = e.target.value.slice(0, maxNum);
+        //  setIsChangeTel(true);
+        setSubjectEdit(e.target.value);
+        break;
+      case 'endDateEdit':
+        // setShowError(false);
+        if (e.target.value.length > maxNum)
+          e.target.value = e.target.value.slice(0, maxNum);
+        //  setIsChangeTel(true);
+        setEndDateEdit(e.target.value);
+        break;
       case 'meetingSubTitle':
         // setShowError(false);
         if (e.target.value.length > maxNum)
@@ -133,12 +158,52 @@ const CreateSummaryOfMeeting = () => {
     }
     console.log(contactlist);
   };
+  const updateItemInList = async () => {
+    setTimeout(() => {
+      setShowData(false);
+    }, 1);
+    let updateSubject = contactlist.filter((o) => {
+      return o.id == id;
+    });
+    if (updateSubject != null && updateSubject.length > 0) {
+      updateSubject[0].Subject = subjectEdit;
+      updateSubject[0].tracingResponsible = tracingResponsibleEdit;
+      updateSubject[0].endDate = endDateEdit;
+    }
+    console.log('updateSubject', updateSubject);
+    // let subjects = contactlist;
+
+    // let updateSubjectOfMeeting = {
+    //   Subject: subjectEdit,
+    //   tracingResponsible: tracingResponsibleEdit,
+    //   // endDate: endDate.year + '/' + endDate.month + '/' + endDate.day,
+    //   endDate: endDateEdit,
+    //   id: contactlist.length + 1,
+    // };
+    // subjects.push(updateSubjectOfMeeting);
+    // setContactList(subjects);
+    setEndDateEdit(null);
+    setTracingResponsibleEdit('');
+    setSubjectEdit('');
+
+    if (contactlist.length > 0) {
+      setTimeout(() => {
+        setShowData(true);
+      }, 1);
+    } else {
+      setTimeout(() => {
+        setShowData(false);
+      }, 1);
+    }
+    console.log(contactlist);
+  };
 
   return (
     <div className='mt-5'>
       {/* // */}
       <div
-        className='modal fade bd-example-modal-lg'
+        // className='modal fade bd-example-modal-lg'
+        className='modal fade modal21'
         tabIndex='-1'
         role='dialog'
         aria-labelledby='myLargeModalLabel'
@@ -166,9 +231,9 @@ const CreateSummaryOfMeeting = () => {
                   موضوع
                   <input
                     type='text'
-                    value={meetingSubTitle ? meetingSubTitle : ''}
+                    value={subjectEdit ? subjectEdit : ''}
                     onChange={(e) => {
-                      onChanged(e, 'meetingSubTitle', 900);
+                      onChanged(e, 'subjectEdit', 900);
                     }}
                     className='text-center form-control'
                     id='recipient-name'
@@ -181,9 +246,9 @@ const CreateSummaryOfMeeting = () => {
                   </label>
                   <input
                     type='text'
-                    value={tracingResponsible ? tracingResponsible : ''}
+                    value={tracingResponsibleEdit ? tracingResponsibleEdit : ''}
                     onChange={(e) => {
-                      onChanged(e, 'tracingResponsible', 900);
+                      onChanged(e, 'tracingResponsibleEdit', 900);
                     }}
                     className='text-center form-control'
                   />
@@ -195,9 +260,9 @@ const CreateSummaryOfMeeting = () => {
                   </label>
                   <input
                     type='text'
-                    value={endDate ? endDate : ''}
+                    value={endDateEdit ? endDateEdit : ''}
                     onChange={(e) => {
-                      onChanged(e, 'tracingResponsible', 900);
+                      onChanged(e, 'endDateEdit', 900);
                     }}
                     className='text-center form-control'
                   />
@@ -218,7 +283,7 @@ const CreateSummaryOfMeeting = () => {
                 type='button'
                 className='btn btn-primary'
                 data-dismiss='modal'
-                // onClick={(e) => validateAndSend(e, 'Admin')}
+                onClick={(e) => updateItemInList(e)}
               >
                 ذخیره تغییرات
               </button>
