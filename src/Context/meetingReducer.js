@@ -1,17 +1,17 @@
 /* eslint-disable import/no-anonymous-default-export */
 import {
-  CREATE_XML_AND_SEND_MAIL_SUCCESS,
-  CREATE_XML_AND_SEND_MAIL_FAIL,
-  GET_CONTACT_LIST_FAIL,
-  GET_CONTACT_LIST_SUCCESS,
-  CREATE_OR_UPDATE_CONTACT_FAIL,
-  CREATE_OR_UPDATE_CONTACT_SUCCESS,
-  SET_CREATE_XML_TO_NULL,
+ 
+  GET_MEETING_LIST_SUCCESS,
+  GET_MEETING_LIST_FAIL,
+  
+  CREATE_OR_UPDATE_MEETING_FAIL,
+  CREATE_OR_UPDATE_MEETING_SUCCESS,
+  SET_CREATE_MEETING_TO_NULL ,
   SET_SHOW_MODAL,
   SET_SHOW_LOADER,
-  SET_CREATE_OR_UPDATE_CONTACT_TO_NULL,
-  GET_CONTACT_BY_PRSNUM_FAIL,
-  GET_CONTACT_BY_PRSNUM_SUCCESS,
+ 
+  GET_MEETING_BY_ID_FAIL,
+  GET_MEETING_BY_ID_SUCCESS,
   GET_CONTACT_DECODE_SUCCESS,
   GET_CONTACT_DECODE_FAIL,
   
@@ -31,20 +31,20 @@ export default (state, action) => {
         ...state,
         error: action.payload,        
       };
-    case GET_CONTACT_BY_PRSNUM_SUCCESS:
+    case GET_MEETING_BY_ID_SUCCESS:
       return {
         ...state,
-        contactlist: action.payload,
+        meetinglist: action.payload,
       };
-    case GET_CONTACT_BY_PRSNUM_FAIL:
+    case GET_MEETING_BY_ID_FAIL:
       return {
         ...state,
         error: action.payload,
       };
-    case SET_CREATE_OR_UPDATE_CONTACT_TO_NULL:
+    case  SET_CREATE_MEETING_TO_NULL:
       return {
         ...state,
-        createdorupdatedContact: action.payload,
+        createdorupdatedMeeting: action.payload,
       };
     case SET_SHOW_LOADER:
       return {
@@ -56,38 +56,24 @@ export default (state, action) => {
         ...state,
         showModal: action.payload,
       };
-    case SET_CREATE_XML_TO_NULL:
-      return {
-        ...state,
-        createdXmlAndSendMail: action.payload,
-      };
-    case CREATE_XML_AND_SEND_MAIL_SUCCESS:
-      return {
-        ...state,
-        createdXmlAndSendMail: action.payload,
-      };
-    case CREATE_XML_AND_SEND_MAIL_FAIL:
-      return {
-        ...state,
-        error: action.payload,
-      };
+   
 
-    case GET_CONTACT_LIST_SUCCESS:
+    case GET_MEETING_LIST_SUCCESS:
       return {
         ...state,
-        contactlist: action.payload,
+        meetinglist: action.payload,
       };
-    case GET_CONTACT_LIST_FAIL:
+    case GET_MEETING_LIST_FAIL:
       return {
         ...state,
         error: action.payload,
       };
-    case CREATE_OR_UPDATE_CONTACT_SUCCESS:
+    case CREATE_OR_UPDATE_MEETING_SUCCESS:
       return {
         ...state,
-        createdorupdatedContact: action.payload,
+        createdorupdatedMeeting: action.payload,
       };
-    case CREATE_OR_UPDATE_CONTACT_FAIL:
+    case CREATE_OR_UPDATE_MEETING_FAIL:
       return {
         ...state,
         error: action.payload,

@@ -1,6 +1,7 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useContext } from 'react';
 // import { Calendar, DatePicker } from 'react-persian-datepicker';
 import CustomTable from './Common/CustomTable';
+import MeetingContext from '../Context/meetingContext';
 import { TitleColumns } from './Common/Columns';
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import '../css/KiarashDatePicker/responsiveDatePicker.css';
@@ -9,6 +10,11 @@ import { utils } from 'react-modern-calendar-datepicker';
 
 const CreateSummaryOfMeeting = () => {
   const [meetingDate, setMeetingDate] = useState(null);
+  const [Titel, setTitle] = useState(null);
+  const [MeetingNumber, setMeetingNumber] = useState(null);
+  const [InnerParticipator, setInnerParticipator] = useState(null);
+  const [Location, setLocation] = useState(null);
+
   const [endDate, setEndDate] = useState(null);
   const [endDateEdit, setEndDateEdit] = useState(null);
   const [selectedRow, setSelectedRow] = useState('');
@@ -20,6 +26,17 @@ const CreateSummaryOfMeeting = () => {
   const [tracingResponsibleEdit, setTracingResponsibleEdit] = useState('');
   const [contactlist, setContactList] = useState([]);
   const persianToday = utils('fa').getToday(); // { year: 1399, month: 11, day: 9 }
+
+  const meetingContext = useContext(MeetingContext);
+
+  const {
+    createOrUpdateMeeting,
+    // GetMeetingList,
+    // setCreateMeetingToNull,
+    // showModal,
+    // showLoader,
+    // error,
+  } = meetingContext;
 
   const setSelectedRowData = (row) => {
     setSelectedRow(row.original);
@@ -88,6 +105,64 @@ const CreateSummaryOfMeeting = () => {
     []
   );
 
+  const validateAndSend = async (e) => {
+    e.preventDefault();
+
+    let inputData = {
+      Title: Titel,
+      MeetingNumber: MeetingNumber,
+      InnerParticipators: InnerParticipator,
+      //OuterParticipators: OuterParticipator,
+      Location: Location,
+      // MeetingDate:meetingDate,
+      lstSubjects: contactlist,
+    };
+
+    // const formData = new FormData();
+    // formData.append('file', file);
+
+    if (
+      Titel &&
+      MeetingNumber &&
+      InnerParticipator &&
+      Location &&
+      meetingDate &&
+      contactlist
+    ) {
+      if (
+        contactlist.length > 0 &&
+        Titel.length > 1 &&
+        MeetingNumber.length > 1 &&
+        InnerParticipator.length > 1 &&
+        Location.length > 1
+      ) {
+        console.log('inputdata', inputData);
+        createOrUpdateMeeting(inputData);
+      }
+    } else {
+      // if (organization === null || organization === '') {
+      //   setisShowOrganizationError(true);
+      // }
+      // if (position === null || position === '') {
+      //   setisShowPositionError(true);
+      // }
+      // if (code === null || code === '') {
+      //   setisShowCodeError(true);
+      // }
+      // if (letterNo === null || letterNo === '') {
+      //   setisShowLetterNoError(true);
+      // }
+      // if (subject === null || subject === '') {
+      //   setisShowSubjectError(true);
+      // }
+      // if (reciever === null || reciever === '') {
+      //   setisShowRecieverError(true);
+      // }
+      // if (department === null || department === '') {
+      //   setisShowDepartmentError(true);
+      // }
+    }
+  };
   const onChanged = (e, Type, maxNum) => {
     switch (Type) {
       case 'tracingResponsible':
@@ -125,6 +200,35 @@ const CreateSummaryOfMeeting = () => {
         // setIsChangeDirectPhone(true);
         setMeetingSubTitle(e.target.value);
         break;
+      case 'Titel':
+        // setShowError(false);
+        if (e.target.value.length > maxNum)
+          e.target.value = e.target.value.slice(0, maxNum);
+        // setIsChangeDirectPhone(true);
+        setTitle(e.target.value);
+        break;
+      case 'MeetingNumber':
+        // setShowError(false);
+        if (e.target.value.length > maxNum)
+          e.target.value = e.target.value.slice(0, maxNum);
+        // setIsChangeDirectPhone(true);
+        setMeetingNumber(e.target.value);
+        break;
+      case 'InnerParticipator':
+        // setShowError(false);
+        if (e.target.value.length > maxNum)
+          e.target.value = e.target.value.slice(0, maxNum);
+        // setIsChangeDirectPhone(true);
+        setInnerParticipator(e.target.value);
+        break;
+      case 'Location':
+        // setShowError(false);
+        if (e.target.value.length > maxNum)
+          e.target.value = e.target.value.slice(0, maxNum);
+        // setIsChangeDirectPhone(true);
+        setLocation(e.target.value);
+        break;
+
       default:
         break;
     }
@@ -171,17 +275,7 @@ const CreateSummaryOfMeeting = () => {
       updateSubject[0].endDate = endDateEdit;
     }
     console.log('updateSubject', updateSubject);
-    // let subjects = contactlist;
 
-    // let updateSubjectOfMeeting = {
-    //   Subject: subjectEdit,
-    //   tracingResponsible: tracingResponsibleEdit,
-    //   // endDate: endDate.year + '/' + endDate.month + '/' + endDate.day,
-    //   endDate: endDateEdit,
-    //   id: contactlist.length + 1,
-    // };
-    // subjects.push(updateSubjectOfMeeting);
-    // setContactList(subjects);
     setEndDateEdit(null);
     setTracingResponsibleEdit('');
     setSubjectEdit('');
@@ -306,7 +400,10 @@ const CreateSummaryOfMeeting = () => {
               type='text'
               className='form-control'
               id='meetingTitle'
-              // placeholder='عنوان جلسه'
+              value={Titel ? Titel : ''}
+              onChange={(e) => {
+                onChanged(e, 'Titel', 900);
+              }}
             />
           </div>
           <label
@@ -320,7 +417,10 @@ const CreateSummaryOfMeeting = () => {
               type='text'
               className='form-control'
               id='meetingNumber'
-              // placeholder='شماره جلسه'
+              value={MeetingNumber ? MeetingNumber : ''}
+              onChange={(e) => {
+                onChanged(e, 'MeetingNumber', 900);
+              }}
             />
           </div>
           <label
@@ -354,7 +454,10 @@ const CreateSummaryOfMeeting = () => {
               type='text'
               className='form-control'
               id='participators'
-              // placeholder=' شرکت کنندگان'
+              value={InnerParticipator ? InnerParticipator : ''}
+              onChange={(e) => {
+                onChanged(e, 'InnerParticipator', 900);
+              }}
             />
           </div>
           <label
@@ -368,7 +471,10 @@ const CreateSummaryOfMeeting = () => {
               type='text'
               className='form-control w-75'
               id='meetingLocation'
-              // placeholder='محل تشکیل جلسه'
+              value={Location ? Location : ''}
+              onChange={(e) => {
+                onChanged(e, 'Location', 900);
+              }}
             />
           </div>
         </div>
@@ -448,7 +554,13 @@ const CreateSummaryOfMeeting = () => {
           ) : null}
         </div>
 
-        <button type='submit' className='btn btn-primary mt-2 ml-3 forLable'>
+        <button
+          type='submit'
+          className='btn btn-primary mt-2 ml-3 forLable'
+          onClick={(e) => {
+            validateAndSend(e);
+          }}
+        >
           ثبت
         </button>
       </form>

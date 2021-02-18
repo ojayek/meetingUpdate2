@@ -1,35 +1,31 @@
 import React, { useReducer } from 'react';
-import MailContext from './mailContext';
-import MailReducer from './mailReducer';
+import MeetingContext from './meetingContext';
+import MeetingReducer from './meetingReducer';
 
 import { encode, decode } from 'js-base64';
 
 import axios from 'axios';
 import { SERVER_URL } from '../Constant/constant';
 import {
-  CREATE_XML_AND_SEND_MAIL_SUCCESS,
-  CREATE_XML_AND_SEND_MAIL_FAIL,
-  GET_CONTACT_LIST_FAIL,
-  GET_CONTACT_LIST_SUCCESS,
-  CREATE_OR_UPDATE_CONTACT_SUCCESS,
-  CREATE_OR_UPDATE_CONTACT_FAIL,
-  SET_CREATE_XML_TO_NULL,
+  GET_MEETING_LIST_SUCCESS,
+  GET_MEETING_LIST_FAIL,
+  CREATE_OR_UPDATE_MEETING_SUCCESS,
+  CREATE_OR_UPDATE_MEETING_FAIL,
+  SET_CREATE_MEETING_TO_NULL,
   SET_SHOW_MODAL,
   SET_SHOW_LOADER,
-  SET_CREATE_OR_UPDATE_CONTACT_TO_NULL,
-  GET_CONTACT_BY_PRSNUM_SUCCESS,
-  GET_CONTACT_BY_PRSNUM_FAIL,
+  GET_MEETING_BY_ID_FAIL,
+  GET_MEETING_BY_ID_SUCCESS,
   GET_CONTACT_DECODE_FAIL,
   GET_CONTACT_DECODE_SUCCESS,
 } from './types';
 
-const MailState = (props) => {
+const MeetingState = (props) => {
   const initialState = {
-    createdXmlAndSendMail: null,
     error: null,
-    createdorupdatedContact: null,
+    createdorupdatedMeeting: null,
     showResult: false,
-    contactlist: [],
+    meetinglist: [],
     showModal: null,
     showLoader: false,
     decodePrsCode: null,
@@ -37,7 +33,7 @@ const MailState = (props) => {
     isAdmin: false,
   };
 
-  const [state, dispatch] = useReducer(MailReducer, initialState);
+  const [state, dispatch] = useReducer(MeetingReducer, initialState);
 
   const SetShowLoader = (data) => {
     dispatch({
@@ -45,62 +41,17 @@ const MailState = (props) => {
       payload: data,
     });
   };
-  const setCreateXmlToNull = () => {
+  const setCreateMeetingToNull = () => {
     SetShowLoader(false);
     SetShowModal(false);
     dispatch({
-      type: SET_CREATE_XML_TO_NULL,
+      type: SET_CREATE_MEETING_TO_NULL,
       payload: null,
     });
   };
-  const SetCreateOrUpdateContactToNull = () => {
-    dispatch({
-      type: SET_CREATE_OR_UPDATE_CONTACT_TO_NULL,
-      payload: null,
-    });
-  };
-  // Register User
-  const createXmlAndSendMail = async (formData, inputData) => {
-    SetShowLoader(true);
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        code: encode(inputData.code),
-        organization: encode(inputData.organization),
-        position: encode(inputData.position),
-        letterno: encode(inputData.letterNo),
-        subject: encode(inputData.subject),
-        to: inputData.reciever,
-        department: encode(inputData.department),
-        body: encode(inputData.subject),
-      },
-    };
-    //  console.log(inputData);
-
-    try {
-      const res = await axios.post(
-        SERVER_URL + '/Email/CreateXml',
-        formData,
-        config
-      );
-      SetShowLoader(false);
-      SetShowModal(true);
-      // console.log('created email response data:', res.data);
-      dispatch({
-        type: CREATE_XML_AND_SEND_MAIL_SUCCESS,
-        payload: res.data,
-      });
-    } catch (err) {
-      console.log('error', err);
-      dispatch({
-        type: CREATE_XML_AND_SEND_MAIL_FAIL,
-        payload: err,
-      });
-    }
-  };
 
   // Register User
-  const createOrUpdateContact = async (formData, pc) => {
+  const createOrUpdateMeeting = async (formData) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -109,26 +60,26 @@ const MailState = (props) => {
 
     try {
       const res = await axios.post(
-        SERVER_URL + '/Contact/CreateContact',
+        SERVER_URL + '/Meeting/CreateMeeting',
         formData,
         config
       );
-      console.log('create or update contact data:', res.data);
-      if (pc) {
-        GetDecodePrsCode(pc);
-      }
+      console.log('create or update meeting data:', res.data);
+      // if (pc) {
+      //   GetDecodePrsCode(pc);
+      // }
       dispatch({
-        type: CREATE_OR_UPDATE_CONTACT_SUCCESS,
+        type: CREATE_OR_UPDATE_MEETING_SUCCESS,
         payload: res.data,
       });
     } catch (err) {
       dispatch({
-        type: CREATE_OR_UPDATE_CONTACT_FAIL,
-        payload: err.response.data.msgText,
+        type: CREATE_OR_UPDATE_MEETING_FAIL,
+        payload: err.response,
       });
     }
   };
-  const GetContactList = async () => {
+  const GetMeetingList = async () => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -137,23 +88,23 @@ const MailState = (props) => {
 
     try {
       const res = await axios.get(
-        SERVER_URL + '/Contact/GetContactList',
+        SERVER_URL + '/Meeting/GetMeetingList',
         config
       );
       //console.log('register data:', res.data);
       dispatch({
-        type: GET_CONTACT_LIST_SUCCESS,
+        type: GET_MEETING_LIST_SUCCESS,
         payload: res.data,
       });
     } catch (err) {
       dispatch({
-        type: GET_CONTACT_LIST_FAIL,
+        type: GET_MEETING_LIST_FAIL,
         payload: err.response.data.msgText,
       });
     }
   };
 
-  const GetContactByPrsNum = async (prsnum) => {
+  const GetMeetingById = async (prsnum) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -162,17 +113,17 @@ const MailState = (props) => {
 
     try {
       const res = await axios.get(
-        SERVER_URL + '/Contact/GetContactByPrsNum/' + prsnum,
+        SERVER_URL + '/Meeting/GetMeetingById/' + prsnum,
         config
       );
       //console.log('register data:', res.data);
       dispatch({
-        type: GET_CONTACT_BY_PRSNUM_SUCCESS,
+        type: GET_MEETING_BY_ID_SUCCESS,
         payload: res.data,
       });
     } catch (err) {
       dispatch({
-        type: GET_CONTACT_BY_PRSNUM_FAIL,
+        type: GET_MEETING_BY_ID_FAIL,
         payload: err.response.data.msgText,
       });
     }
@@ -210,31 +161,29 @@ const MailState = (props) => {
   };
 
   return (
-    <MailContext.Provider
+    <MeetingContext.Provider
       value={{
-        createdXmlAndSendMail: state.createdXmlAndSendMail,
         error: state.error,
-        contactlist: state.contactlist,
-        createdorupdatedContact: state.createdorupdatedContact,
+        meetinglist: state.meetinglist,
+        createdorupdatedMeeting: state.createdorupdatedMeeting,
         showModal: state.showModal,
         showLoader: state.showLoader,
         decodePrsCode: state.decodePrsCode,
         currentUser: state.currentUser,
         isAdmin: state.isAdmin,
-        createOrUpdateContact,
-        createXmlAndSendMail,
-        GetContactList,
-        setCreateXmlToNull,
+        createOrUpdateMeeting,
+
+        GetMeetingList,
+        setCreateMeetingToNull,
         SetShowModal,
         SetShowLoader,
-        SetCreateOrUpdateContactToNull,
-        GetContactByPrsNum,
+        GetMeetingById,
         GetDecodePrsCode,
       }}
     >
       {props.children}
-    </MailContext.Provider>
+    </MeetingContext.Provider>
   );
 };
 
-export default MailState;
+export default MeetingState;

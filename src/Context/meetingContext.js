@@ -1,5 +1,5 @@
 import { createContext } from 'react';
 
-const mailContext = createContext();
+const meetingContext = createContext();
 
-export default mailContext;
+export default meetingContext;
