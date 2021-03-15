@@ -16,7 +16,7 @@ const CreateSummaryOfMeeting = () => {
   const [Location, setLocation] = useState(null);
 
   const [endDate, setEndDate] = useState(null);
-  const [endDateEdit, setEndDateEdit] = useState(null);
+  const [endDateEdit, setEndDateEdit] = useState(null);// eslint-disable-next-line
   const [selectedRow, setSelectedRow] = useState('');
   const [showData, setShowData] = useState(false);
   const [meetingSubTitle, setMeetingSubTitle] = useState('');
@@ -24,7 +24,7 @@ const CreateSummaryOfMeeting = () => {
   const [tracingResponsible, setTracingResponsible] = useState('');
   const [subjectEdit, setSubjectEdit] = useState('');
   const [tracingResponsibleEdit, setTracingResponsibleEdit] = useState('');
-  const [contactlist, setContactList] = useState([]);
+  const [contactlist, setContactList] = useState([]);// eslint-disable-next-line
   const persianToday = utils('fa').getToday(); // { year: 1399, month: 11, day: 9 }
 
   const meetingContext = useContext(MeetingContext);
@@ -37,7 +37,7 @@ const CreateSummaryOfMeeting = () => {
     // showLoader,
     // error,
   } = meetingContext;
-
+// eslint-disable-next-line
   const setSelectedRowData = (row) => {
     setSelectedRow(row.original);
     // console.log(row.original);
@@ -101,7 +101,7 @@ const CreateSummaryOfMeeting = () => {
     ],
   };
   const KartableColumns = useMemo(
-    () => [kartableActionsAdmin, TitleColumns],
+    () => [kartableActionsAdmin, TitleColumns],// eslint-disable-next-line
     []
   );
 
@@ -267,7 +267,7 @@ const CreateSummaryOfMeeting = () => {
       setShowData(false);
     }, 1);
     let updateSubject = contactlist.filter((o) => {
-      return o.id == id;
+      return o.id === id;
     });
     if (updateSubject != null && updateSubject.length > 0) {
       updateSubject[0].Subject = subjectEdit;
