@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import MailContext from '../../Context/mailContext';
+import MeetingContext from '../../Context/meetingContext';
 
 function User() {
-  const mailContext = useContext(MailContext);
+  const mailContext = useContext(MeetingContext);
   const { currentUser } = mailContext;
   return (
     <div className='text-left' style={{ top: '0px' }}>
@@ -12,7 +12,11 @@ function User() {
             {currentUser.Nam}-{currentUser.NamKhanevadegi}
           </label>
           <a
-            style={{ color: 'whitesmoke', display: 'block', marginLeft: '2.2rem' }}
+            style={{
+              color: 'whitesmoke',
+              display: 'block',
+              marginLeft: '2.2rem',
+            }}
             href='http://software.moshanir.com/mis/'
           >
             خروج

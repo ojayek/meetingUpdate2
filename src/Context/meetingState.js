@@ -88,7 +88,7 @@ const MeetingState = (props) => {
 
     try {
       const res = await axios.get(
-        SERVER_URL + '/Meeting/GetMeetingList',
+        SERVER_URL + '/Meeting/GetAllMeeting',
         config
       );
       //console.log('register data:', res.data);
