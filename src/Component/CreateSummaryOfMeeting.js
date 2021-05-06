@@ -2,7 +2,7 @@ import React, { useMemo, useState, useContext } from 'react';
 // import { Calendar, DatePicker } from 'react-persian-datepicker';
 import CustomTable from './Common/CustomTable';
 import MeetingContext from '../Context/meetingContext';
-import { TitleColumns } from './Common/Columns';
+import { SubTitleColumns } from './Common/Columns';
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import '../css/KiarashDatePicker/responsiveDatePicker.css';
 import DatePicker from 'react-modern-calendar-datepicker';
@@ -16,7 +16,7 @@ const CreateSummaryOfMeeting = () => {
   const [Location, setLocation] = useState(null);
 
   const [endDate, setEndDate] = useState(null);
-  const [endDateEdit, setEndDateEdit] = useState(null);// eslint-disable-next-line
+  const [endDateEdit, setEndDateEdit] = useState(null); // eslint-disable-next-line
   const [selectedRow, setSelectedRow] = useState('');
   const [showData, setShowData] = useState(false);
   const [meetingSubTitle, setMeetingSubTitle] = useState('');
@@ -24,7 +24,7 @@ const CreateSummaryOfMeeting = () => {
   const [tracingResponsible, setTracingResponsible] = useState('');
   const [subjectEdit, setSubjectEdit] = useState('');
   const [tracingResponsibleEdit, setTracingResponsibleEdit] = useState('');
-  const [contactlist, setContactList] = useState([]);// eslint-disable-next-line
+  const [contactlist, setContactList] = useState([]); // eslint-disable-next-line
   const persianToday = utils('fa').getToday(); // { year: 1399, month: 11, day: 9 }
 
   const meetingContext = useContext(MeetingContext);
@@ -37,7 +37,7 @@ const CreateSummaryOfMeeting = () => {
     // showLoader,
     // error,
   } = meetingContext;
-// eslint-disable-next-line
+  // eslint-disable-next-line
   const setSelectedRowData = (row) => {
     setSelectedRow(row.original);
     // console.log(row.original);
@@ -101,7 +101,7 @@ const CreateSummaryOfMeeting = () => {
     ],
   };
   const KartableColumns = useMemo(
-    () => [kartableActionsAdmin, TitleColumns],// eslint-disable-next-line
+    () => [kartableActionsAdmin, SubTitleColumns], // eslint-disable-next-line
     []
   );
 
@@ -114,7 +114,8 @@ const CreateSummaryOfMeeting = () => {
       InnerParticipators: InnerParticipator,
       //OuterParticipators: OuterParticipator,
       Location: Location,
-      // MeetingDate:meetingDate,
+      MeetingDateStr:
+        meetingDate.year + '/' + meetingDate.month + '/' + meetingDate.day,
       lstSubjects: contactlist,
     };
 
@@ -187,10 +188,6 @@ const CreateSummaryOfMeeting = () => {
         setSubjectEdit(e.target.value);
         break;
       case 'endDateEdit':
-        // setShowError(false);
-        if (e.target.value.length > maxNum)
-          e.target.value = e.target.value.slice(0, maxNum);
-        //  setIsChangeTel(true);
         setEndDateEdit(e.target.value);
         break;
       case 'meetingSubTitle':
@@ -242,7 +239,7 @@ const CreateSummaryOfMeeting = () => {
     let subjectOfMeeting = {
       Subject: meetingSubTitle,
       tracingResponsible: tracingResponsible,
-      endDate: endDate.year + '/' + endDate.month + '/' + endDate.day,
+      endDateStr: endDate.year + '/' + endDate.month + '/' + endDate.day,
       id: contactlist.length + 1,
     };
     subjects.push(subjectOfMeeting);

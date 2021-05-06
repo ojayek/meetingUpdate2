@@ -332,7 +332,8 @@ function CustomTable({ columns, data, updateMyData, pc, skipReset }) {
 
   // Render the UI for your table
   return (
-    <div className='scroll rtlDir ' style={{ width: '100vw' }}>
+    // <div className='scroll rtlDir ' style={{ width: '100vw' }}>
+    <div className='scroll rtlDir '>
       <table {...getTableProps()} className='striped highlight w-100'>
         <thead>
           {headerGroups.map((headerGroup) => (

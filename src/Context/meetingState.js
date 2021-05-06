@@ -26,6 +26,7 @@ const MeetingState = (props) => {
     createdorupdatedMeeting: null,
     showResult: false,
     meetinglist: [],
+    meetData:null,
     showModal: null,
     showLoader: false,
     decodePrsCode: null,
@@ -172,8 +173,9 @@ const MeetingState = (props) => {
         currentUser: state.currentUser,
         isAdmin: state.isAdmin,
         createOrUpdateMeeting,
-
+        meetData:state.meetData,
         GetMeetingList,
+
         setCreateMeetingToNull,
         SetShowModal,
         SetShowLoader,

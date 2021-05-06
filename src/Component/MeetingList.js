@@ -4,6 +4,7 @@ import { TitleColumns, SubTitleColumns } from './Common/Columns';
 import MeetingContext from '../Context/meetingContext';
 import Header from './Header';
 import { NavLink } from 'react-router-dom';
+import CreateSummaryOfMeeting from './CreateSummaryOfMeeting';
 // import RefreshContactList from './Common/RefreshContactList';
 // import Loader from './Common/Loader';
 // import * as qs from 'query-string';
@@ -29,6 +30,8 @@ const MeetingList = (props) => {
     meetinglist,
     decodePrsCode,
     currentUser,
+    GetMeetingById,
+    meetData,
     isAdmin,
     error,
   } = meetingContext;
@@ -39,8 +42,9 @@ const MeetingList = (props) => {
   }, []);
 
   const setSelectedRowData = (row) => {
-    setSelectedRow(row.original);
-    // // console.log(row.original);
+    GetMeetingById(row.original.Id);
+    // setSelectedRow(meetData[0]);
+    console.log(row.original);
     // if (row.original.DirectPhoneNo) {
     //   setDirectPhoneNo(row.original.DirectPhoneNo);
     // }
@@ -216,10 +220,12 @@ const MeetingList = (props) => {
       >
         <div className='modal-dialog modal-lg'>
           <div className='modal-content'>
-            <div className='modal-header'>
-              <h5 className='modal-title' id='exampleModalLabel'>
-                مشاهده
-              </h5>
+            <div className='modal-header '>
+              <div className='text-center w-100'>
+                <h5 className='modal-title text-center' id='exampleModalLabel'>
+                  &nbsp; مشاهده
+                </h5>
+              </div>
               <button
                 type='button'
                 className='close'
@@ -231,50 +237,58 @@ const MeetingList = (props) => {
             </div>
             <div className='modal-body'>
               <form>
-                <div className='form-group'>
-                  <label className='col-form-label '>
-                    شماره جلسه:
-                    <span className='h5 font-weight-bold '>
-                      {selectedRow.Id}
-                    </span>
-                  </label>
-                  <label className='d-block'>
-                    عنوان جلسه:
-                    <span className='h5 font-weight-bold '>
-                      {selectedRow.Title}
-                    </span>{' '}
-                  </label>
+                <div className='form-group' style={{ direction: 'rtl' }}>
+                  <div className='row'>
+                    <div className='col-4 text-right'>
+                      <label className='col-form-label  '>
+                        شماره جلسه:
+                        <span className='h7 font-weight-bold '>
+                          {meetData ? meetData[0].Id : null}
+                        </span>
+                      </label>
+                    </div>
 
-                  <label className='d-block'>
-                    تاریخ جلسه:
-                    <span className='h5 font-weight-bold'>
-                      {selectedRow.MeetingDate}
-                    </span>
-                    <span>&nbsp; &nbsp;</span>
-                    شرکت کنندگان:
-                    <span className='h5 font-weight-bold'>
-                      {selectedRow.InnerParticipator}
-                    </span>
-                  </label>
-                  <label className='col-form-label'>
-                    عنوان:
-                    <span className='h5 font-weight-bold'>
-                      {selectedRow.Location}
-                    </span>
-                  </label>
-
-                  <label className='d-block '>
-                    {/* شماره ساختمان:
-                    <span className='h5 font-weight-bold '>
-                      {selectedRow.NumBuild}
-                    </span> */}
-                  </label>
+                    <div className='col-4 text-right'>
+                      <label className='d-block'>
+                        عنوان جلسه:
+                        <span className='h7 font-weight-bold '>
+                          {meetData ? meetData[0].Title : null}
+                        </span>{' '}
+                      </label>
+                    </div>
+                    <div className='col-4 text-right'>
+                      <label className='d-block'>
+                        تاریخ جلسه:
+                        <span className='h7 font-weight-bold'>
+                          {meetData ? meetData[0].MeetingDateStr : null}
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                  <div className='row'>
+                    <div className='col-4 text-right'>
+                      <label className='col-form-label'>
+                        شرکت کنندگان:
+                        <span className='h7 font-weight-bold'>
+                          {meetData ? meetData[0].InnerParticipators : null}
+                        </span>
+                      </label>
+                    </div>
+                    <div className='col-4 text-right'>
+                      <label className='col-form-label'>
+                        محل تشکیل:
+                        <span className='h7 font-weight-bold'>
+                          {meetData ? meetData[0].Location : null}
+                        </span>
+                      </label>
+                    </div>
+                    <div className='col-4 text-right'></div>
+                  </div>
                 </div>
-                <div>
+                <div style={{ boxSizing: 'border-box' }}>
                   <CustomTable
-                    style={{ width: '65vw' }}
                     columns={SubTitleCol}
-                    data={[]}
+                    data={meetData ? meetData[0].lstSubjects : []}
                     //{meetinglist ? meetinglist : []}
                   />
                 </div>
@@ -302,18 +316,18 @@ const MeetingList = (props) => {
         </div>
       </div>
 
-      <div className='d-inline-block mt-5 mr-5 text-center'>
+      <div className='d-inline-block mt-5 mr-5 text-center w-100'>
         {meetinglist.length > 0 &&
         decodePrsCode !==
           'Invalid length htmlFor a Base-64 char array or string.' ? (
-          <div className='rtl'>
+          <div className='rtl '>
             <ul
               className='nav nav-tabs nav-justified '
               style={{ direction: 'rtl' }}
               id='myTab'
               role='tablist'
             >
-              <li className='nav-item'>
+              <li className='nav-item '>
                 <a
                   className='nav-link active'
                   id='home-tab'
@@ -360,7 +374,8 @@ const MeetingList = (props) => {
                 aria-labelledby='profile-tab'
               >
                 <div className='mt-5 ' style={{ width: '100vw' }}>
-                  <NavLink to='/CreateForm'>ایجاد یک صورتجلسه</NavLink>
+                  {/* <NavLink to='/CreateForm'>ایجاد یک صورتجلسه</NavLink> */}
+                  <CreateSummaryOfMeeting />
                 </div>
               </div>
             </div>

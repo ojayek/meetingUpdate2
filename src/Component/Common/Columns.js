@@ -14,7 +14,7 @@ export const TitleColumns = {
 
     {
       Header: 'تاریخ',
-      accessor: 'MeetingDate',
+      accessor: 'MeetingDateStr',
       width: '30px',
     },
     {
@@ -40,18 +40,18 @@ export const SubTitleColumns = {
     },
     {
       Header: 'موضوع',
-      accessor: 'SubTitle',
+      accessor: 'Subject',
       width: '30px',
     },
     {
       Header: 'مسسوول پیگیری',
-      accessor: 'Responsible',
+      accessor: 'tracingResponsible',
       width: '30px',
     },
 
     {
       Header: 'مهلت انجام',
-      accessor: 'DeadLine',
+      accessor: 'endDateStr',
       width: '30px',
     }
   ],

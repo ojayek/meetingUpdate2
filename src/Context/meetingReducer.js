@@ -34,7 +34,7 @@ export default (state, action) => {
     case GET_MEETING_BY_ID_SUCCESS:
       return {
         ...state,
-        meetinglist: action.payload,
+        meetData: action.payload,
       };
     case GET_MEETING_BY_ID_FAIL:
       return {
