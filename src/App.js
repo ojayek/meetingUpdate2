@@ -1,3 +1,7 @@
+
+// eslint-disable-line no-eval
+/* eslint-disable */
+
 import logo from './logo.svg';
 import './css/App.css';
 import { BrowserRouter } from 'react-router-dom';

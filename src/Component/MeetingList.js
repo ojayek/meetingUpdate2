@@ -1,6 +1,10 @@
 import React, { useMemo, useState, useContext, useEffect } from 'react';
 import CustomTable from './Common/CustomTable';
-import { TitleColumns, SubTitleColumns } from './Common/Columns';
+import {
+  TitleColumns,
+  SubTitleColumns,
+  SubTitleColumnsForShow,
+} from './Common/Columns';
 import MeetingContext from '../Context/meetingContext';
 import Header from './Header';
 import { NavLink } from 'react-router-dom';
@@ -44,7 +48,7 @@ const MeetingList = (props) => {
   const setSelectedRowData = (row) => {
     GetMeetingById(row.original.Id);
     // setSelectedRow(meetData[0]);
-    console.log(row.original);
+    console.log('row Data', row.original);
     // if (row.original.DirectPhoneNo) {
     //   setDirectPhoneNo(row.original.DirectPhoneNo);
     // }
@@ -99,7 +103,7 @@ const MeetingList = (props) => {
   );
 
   const SubTitleCol = useMemo(
-    () => [SubTitleColumns],
+    () => [SubTitleColumnsForShow],
 
     []
   );

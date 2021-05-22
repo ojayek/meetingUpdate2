@@ -30,6 +30,33 @@ export const TitleColumns = {
   ],
 };
 
+export const SubTitleColumnsForShow = {
+  Header: '-',
+  columns: [
+    {
+      Header: 'شماره',
+      accessor: 'Id',
+      width: '30px',
+    },
+    {
+      Header: 'موضوع',
+      accessor: 'Subject',
+      width: '30px',
+    },
+    {
+      Header: 'مسسوول پیگیری',
+      accessor: 'tracingResponsible',
+      width: '30px',
+    },
+
+    {
+      Header: 'مهلت انجام',
+      accessor: 'endDateStr',
+      width: '30px',
+    },
+  ],
+};
+
 export const SubTitleColumns = {
   Header: '-',
   columns: [
@@ -53,6 +80,6 @@ export const SubTitleColumns = {
       Header: 'مهلت انجام',
       accessor: 'endDateStr',
       width: '30px',
-    }
+    },
   ],
 };

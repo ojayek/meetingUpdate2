@@ -16,7 +16,7 @@ const CreateSummaryOfMeeting = () => {
   const [Location, setLocation] = useState(null);
 
   const [endDate, setEndDate] = useState(null);
-  const [endDateEdit, setEndDateEdit] = useState(null); // eslint-disable-next-line
+  const [endDateEdit, setEndDateEdit] = useState(null);
   const [selectedRow, setSelectedRow] = useState('');
   const [showData, setShowData] = useState(false);
   const [meetingSubTitle, setMeetingSubTitle] = useState('');
@@ -384,62 +384,102 @@ const CreateSummaryOfMeeting = () => {
       </div>
       {/* /// */}
 
-      <form>
+      <form className='mt-0'>
+        <div className='form-row mb-3' style={{ direction: 'rtl' }}>
+          <label
+            htmlFor='participators'
+            className='col-12 col-form-label text-center font-weight-bold'
+          >
+            صورتجلسه
+          </label>
+        </div>
         <div className='form-row' style={{ direction: 'rtl' }}>
-          <label
-            htmlFor='meetingTitle'
-            className='col-1 col-form-label forLable'
-          >
-            عنوان جلسه:
-          </label>
-          <div className='col-5'>
-            <input
-              type='text'
-              className='form-control'
-              id='meetingTitle'
-              value={Titel ? Titel : ''}
-              onChange={(e) => {
-                onChanged(e, 'Titel', 900);
-              }}
-            />
+          <div className='col-2 text-nowrap'>
+            <div>
+              <label htmlFor='meetingTitle' className='col-form-label'>
+                عنوان جلسه:
+              </label>
+            </div>
+            <div className='mr-2'>
+              <input
+                type='text'
+                className='form-control'
+                id='meetingTitle'
+                value={Titel ? Titel : ''}
+                onChange={(e) => {
+                  onChanged(e, 'Titel', 900);
+                }}
+              />
+            </div>
           </div>
-          <label
-            htmlFor='meetingNumber'
-            className='col-1 col-form-label forLable '
-          >
-            شماره جلسه:
-          </label>
-          <div className='col-1'>
-            <input
-              type='text'
-              className='form-control'
-              id='meetingNumber'
-              value={MeetingNumber ? MeetingNumber : ''}
-              onChange={(e) => {
-                onChanged(e, 'MeetingNumber', 900);
-              }}
-            />
+          <div className='col-2 text-nowrap'>
+            <div>
+              <label htmlFor='meetingTitle' className='col-form-label'>
+                شماره جلسه:
+              </label>
+            </div>
+            <div className='mr-2'>
+              <input
+                type='text'
+                className='form-control'
+                id='meetingNumber'
+                value={MeetingNumber ? MeetingNumber : ''}
+                onChange={(e) => {
+                  onChanged(e, 'MeetingNumber', 900);
+                }}
+              />
+            </div>
           </div>
-          <label
-            htmlFor='inputPassword4'
-            className='col-1 col-form-label forLable text-left '
-          >
-            تاریخ:
-          </label>
-          <div className='col-2 text-right'>
-            <DatePicker
-              calendarClassName='responsive-calendar' // added this
-              value={meetingDate}
-              onChange={setMeetingDate}
-              inputPlaceholder='تاریخ را انتخاب نمایید'
-              shouldHighlightWeekends
-              locale='fa' // add this
-            />
+          <div className='col-2 text-nowrap'>
+            <div>
+              <label htmlFor='meetingTitle' className='col-form-label'>
+                تاریخ:
+              </label>
+            </div>
+            <div className='mr-2'>
+              <DatePicker
+                calendarClassName='responsive-calendar' // added this
+                value={meetingDate}
+                onChange={setMeetingDate}
+                inputPlaceholder='تاریخ را انتخاب نمایید'
+                shouldHighlightWeekends
+                locale='fa' // add this
+              />
+            </div>
           </div>
-          <label
-            htmlFor='inputPassword4'
-            className='col-1 col-form-label forLable '
-          ></label>
+          <div className='col-2 text-nowrap'>
+            <div>
+              <label htmlFor='meetingTitle' className='col-form-label'>
+                محل تشکیل جلسه:
+              </label>
+            </div>
+            <div className='mr-2'>
+              <input
+                type='text'
+                className='form-control '
+                id='meetingLocation'
+                value={Location ? Location : ''}
+                onChange={(e) => {
+                  onChanged(e, 'Location', 900);
+                }}
+              />
+            </div>
+          </div>
+          <div className='col-4 text-nowrap'>
+            <div>
+              <label htmlFor='meetingTitle' className='col-form-label'>
+                بارگزاری فایل جلسه:
+              </label>
+            </div>
+            <div className='mr-2'>
+              <input
+                className='mt-2'
+                id='fileupload'
+                name='myfile'
+                type='file'
+              />
+            </div>
+          </div>
         </div>
 
         <div className='form-row mt-2' style={{ direction: 'rtl' }}>
@@ -457,23 +497,6 @@ const CreateSummaryOfMeeting = () => {
               }}
             />
           </div>
-          <label
-            htmlFor='meetingLocation'
-            className='col-1 col-form-label forLable '
-          >
-            محل تشکیل جلسه:
-          </label>
-          <div className='col-2 '>
-            <input
-              type='text'
-              className='form-control w-75'
-              id='meetingLocation'
-              value={Location ? Location : ''}
-              onChange={(e) => {
-                onChanged(e, 'Location', 900);
-              }}
-            />
-          </div>
         </div>
         <div className='form-row mt-2' style={{ direction: 'rtl' }}>
           <label
@@ -484,82 +507,109 @@ const CreateSummaryOfMeeting = () => {
           </label>
         </div>
         <div className='form-row' style={{ direction: 'rtl' }}>
-          <label
-            htmlFor='meetingTitle'
-            className='col-1 col-form-label forLable'
-          >
-            موضوع:
-          </label>
-          <div className='col-5'>
-            <input
-              type='text'
-              className='form-control'
-              id='meetingSubTitle'
-              value={meetingSubTitle}
-              onChange={(e) => onChanged(e, 'meetingSubTitle', 900)}
-              // placeholder='عنوان جلسه'
-            />
+          <div className='col-2 text-nowrap'>
+            <div>
+              <label htmlFor='meetingTitle' className='col-form-label'>
+                بند جلسه:
+              </label>
+            </div>
+            <div className='mr-2'>
+              <input
+                type='text'
+                className='form-control'
+                id='meetingSubTitleNumber'
+                value={meetingSubTitle}
+                onChange={(e) => onChanged(e, 'meetingSubTitleNumber', 20)}
+                // placeholder='عنوان جلسه'
+              />
+            </div>
           </div>
-          <label
-            htmlFor='meetingNumber'
-            className='col-1 col-form-label forLable '
-          >
-            مسوول پیگیری:
-          </label>
-          <div className='col-1'>
-            <input
-              type='text'
-              className='form-control'
-              id='tracingResponsible'
-              value={tracingResponsible}
-              onChange={(e) => onChanged(e, 'tracingResponsible', 900)}
-              // placeholder='شماره جلسه'
-            />
+
+          <div className='col-5 text-nowrap'>
+            <div>
+              <label
+                htmlFor='meetingTitle'
+                className='col-1 col-form-label forLable'
+              >
+                موضوع:
+              </label>
+            </div>
+            <div>
+              <input
+                type='text'
+                className='form-control'
+                id='meetingSubTitle'
+                value={meetingSubTitle}
+                onChange={(e) => onChanged(e, 'meetingSubTitle', 900)}
+                // placeholder='عنوان جلسه'
+              />
+            </div>
           </div>
-          <label
-            htmlFor='inputPassword4'
-            className='col-1 col-form-label forLable text-left '
-          >
-            مهلت انجام:
-          </label>
-          <div className='col-2 text-right'>
-            <DatePicker
-              calendarClassName='responsive-calendar' // added this
-              value={endDate}
-              onChange={setEndDate}
-              inputPlaceholder='تاریخ را انتخاب نمایید'
-              shouldHighlightWeekends
-              locale='fa' // add this
-            />
+
+          <div className='col-2 text-nowrap'>
+            <div>
+              <label htmlFor='meetingNumber' className='col-form-label'>
+                مسوول پیگیری:
+              </label>
+            </div>
+            <div>
+              <input
+                type='text'
+                className='form-control'
+                id='tracingResponsible'
+                value={tracingResponsible}
+                onChange={(e) => onChanged(e, 'tracingResponsible', 900)}
+                // placeholder='شماره جلسه'
+              />
+            </div>
           </div>
-          <label
-            htmlFor='inputPassword4'
-            className='col-1 col-form-label forLable '
-          >
+
+          <div className='col-2 text-right text-nowrap'>
+            <div>
+              <label
+                htmlFor='inputPassword4'
+                className='col-1 col-form-label forLable text-left '
+              >
+                مهلت انجام:
+              </label>
+            </div>
+            <div>
+              <DatePicker
+                calendarClassName='responsive-calendar' // added this
+                value={endDate}
+                onChange={setEndDate}
+                inputPlaceholder='تاریخ را انتخاب نمایید'
+                shouldHighlightWeekends
+                locale='fa' // add this
+              />
+            </div>
+          </div>
+          <div className='col-1 Vertical-center text-nowrap'>
             <button
               type='button'
               onClick={insertToSubjects}
-              className='btn btn-secondary ml-2  forLable'
+              className='btn btn-dark ml-2  forLable'
             >
               ثبت موضوع
             </button>
-          </label>
+          </div>
         </div>
         <div className='form-row m-3' style={{ direction: 'rtl' }}>
           {showData ? (
             <CustomTable columns={KartableColumns} data={contactlist} />
           ) : null}
         </div>
-
-        <button
-          type='submit'
-          className='btn btn-primary mt-2 ml-3 forLable'
-          onClick={(e) => {
-            validateAndSend(e);
-          }}
-        >
-          ثبت
-        </button>
+        <div className='form-row mr-2' style={{ direction: 'rtl' }}>
+          <button
+            type='submit'
+            className='btn btn-info mt-2 ml-3 w-100'
+            onClick={(e) => {
+              validateAndSend(e);
+            }}
+          >
+            ثبت
+          </button>
+        </div>
       </form>
     </div>
   );

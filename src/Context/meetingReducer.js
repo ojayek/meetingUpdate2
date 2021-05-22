@@ -1,20 +1,16 @@
 /* eslint-disable import/no-anonymous-default-export */
 import {
- 
   GET_MEETING_LIST_SUCCESS,
   GET_MEETING_LIST_FAIL,
-  
   CREATE_OR_UPDATE_MEETING_FAIL,
   CREATE_OR_UPDATE_MEETING_SUCCESS,
-  SET_CREATE_MEETING_TO_NULL ,
+  SET_CREATE_MEETING_TO_NULL,
   SET_SHOW_MODAL,
   SET_SHOW_LOADER,
- 
   GET_MEETING_BY_ID_FAIL,
   GET_MEETING_BY_ID_SUCCESS,
   GET_CONTACT_DECODE_SUCCESS,
   GET_CONTACT_DECODE_FAIL,
-  
 } from './types';
 
 export default (state, action) => {
@@ -23,13 +19,13 @@ export default (state, action) => {
       return {
         ...state,
         decodePrsCode: action.payload.PrsCode,
-        currentUser:action.payload.Data,
-        isAdmin:action.payload.isAdmin,
+        currentUser: action.payload.Data,
+        isAdmin: action.payload.isAdmin,
       };
     case GET_CONTACT_DECODE_FAIL:
       return {
         ...state,
-        error: action.payload,        
+        error: action.payload,
       };
     case GET_MEETING_BY_ID_SUCCESS:
       return {
@@ -41,7 +37,7 @@ export default (state, action) => {
         ...state,
         error: action.payload,
       };
-    case  SET_CREATE_MEETING_TO_NULL:
+    case SET_CREATE_MEETING_TO_NULL:
       return {
         ...state,
         createdorupdatedMeeting: action.payload,
@@ -56,7 +52,6 @@ export default (state, action) => {
         ...state,
         showModal: action.payload,
       };
-   
 
     case GET_MEETING_LIST_SUCCESS:
       return {

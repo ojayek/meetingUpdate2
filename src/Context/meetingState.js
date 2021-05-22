@@ -26,7 +26,7 @@ const MeetingState = (props) => {
     createdorupdatedMeeting: null,
     showResult: false,
     meetinglist: [],
-    meetData:null,
+    meetData: null,
     showModal: null,
     showLoader: false,
     decodePrsCode: null,
@@ -117,7 +117,7 @@ const MeetingState = (props) => {
         SERVER_URL + '/Meeting/GetMeetingById/' + prsnum,
         config
       );
-      //console.log('register data:', res.data);
+      console.log('register data:', res.data);
       dispatch({
         type: GET_MEETING_BY_ID_SUCCESS,
         payload: res.data,
@@ -125,7 +125,7 @@ const MeetingState = (props) => {
     } catch (err) {
       dispatch({
         type: GET_MEETING_BY_ID_FAIL,
-        payload: err.response.data.msgText,
+        payload: err,
       });
     }
   };
@@ -173,7 +173,7 @@ const MeetingState = (props) => {
         currentUser: state.currentUser,
         isAdmin: state.isAdmin,
         createOrUpdateMeeting,
-        meetData:state.meetData,
+        meetData: state.meetData,
         GetMeetingList,
 
         setCreateMeetingToNull,

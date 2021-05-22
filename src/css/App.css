@@ -35,3 +35,13 @@ body {
   .forLable{
     font-size: 10pt !important;
   }
+  .text-nowrap {
+    white-space: nowrap;
+}
+.DatePicker input{
+  height: 2.4rem !important;
+  border-radius: 5px;
+}
+.Vertical-center{
+ margin-top:2.2rem !important;
+}

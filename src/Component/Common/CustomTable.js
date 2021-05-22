@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect } from 'react';
 import '../../css/CustomTable.css';
 import styled from 'styled-components';
